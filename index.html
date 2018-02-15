@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyNav</title>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+	<head></head>
+	<main >
+		<div class="wrapper" id=main>
+	
+		</div>
+	</main>
+	<footer></footer>
+	<script type="text/javascript">
+
+
+		//初始化数据//		
+		var hashOne = ddd()
+		var keys = hashOne['keys']
+		var hash = hashOne['hash']
+		
+		//生成键盘//
+		eee(keys,hash)
+		
+		//监听用户//		
+		fff(hash)
+
+		//工具函数//
+		function mmm(name){
+			return JSON.parse(localStorage.getItem(name) || 'null')
+		}
+
+		function x(tagName){
+			return document.createElement(tagName)
+		}
+		
+		function yyy(textContent){
+			var span = x('span')
+			span.textContent = textContent//内层数组对应的index2 q w e…
+			span.className = 'text'
+			
+			return span
+		}
+
+		function zzz(id){
+			var button = x('button')
+			button.textContent = 'M'
+			button.id = id
+			button.onclick = function(sbq){
+				var button2 = sbq['target']  //哪个键
+				var img2 = button2.previousSibling // 被按键的图片
+				var key = button2['id'] //按了哪个键 q w e…
+				var wangzhi = prompt('给我一个网址') //prompt一个点击可以输入文本的函数
+				hash[key] = wangzhi //新的网址给hash hash变更
+				img2.src = 'http://' + wangzhi + '/favicon.ico'
+
+				img2.onerror = function(erro){
+					erro.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+				}
+				localStorage.setItem('zzz', JSON.stringify(hash))
+			}
+			return button
+		}
+		
+		function ccc(domain){
+			
+			var img = x('img')
+			
+			if(domain){
+			img.src = 'http://' + domain + '/favicon.ico'
+			}else{
+				img.src = 'http://i.loli.net/2017/11/10/5a05afbc5e183.png'
+			}	
+			
+			img.onerror = function(erro){
+				erro.target.src = 'http://i.loli.net/2017/11/10/5a05afbc5e183.png'
+			}
+			
+			return img
+		}
+
+		function ddd(){
+			var keys = { 
+			
+				'0': {0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:10},
+				'1': {0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
+				'2': {0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:7},
+				'length': 3
+			}
+
+			var hash = {
+				'q':'qq.com','w':'qq.com','e':'qq.com'
+			}
+
+			var hasloc = mmm('zzz') //取出localStorage 'zzz' 中的hash
+			if(hasloc){
+				hash = hasloc
+			}
+			return {
+				'keys': keys,
+				'hash': hash
+			}
+		}
+
+
+		function eee(keys,hash){
+			for(var index = 0; index <keys['length']; index = index + 1){
+				
+				var div = x('div')
+				div.className = 'row'
+				main.appendChild(div)
+			
+				var row = keys[index] // 第一个数组 第二个数组 第三个数组
+				
+				for(index2 = 0;index2 < row['length'];index2 = index2 + 1){
+				
+					var span = yyy(row[index2])
+				
+					var img = ccc(hash[row[index2]])
+							
+					var button = zzz(row[index2])
+				
+					var kbd = x('kbd')
+					kbd.className = 'key'
+
+					kbd.appendChild(span)
+					kbd.appendChild(img)
+					kbd.appendChild(button)
+				
+					div.appendChild(kbd)				
+				}
+			}
+		}
+
+		function fff(hash){
+			document.onkeypress =function(sbq){
+			var key = sbq['key'] //获取按键 q w e…
+			var website = hash[key] //获取按键对应的hash qq.com… 
+			window.open('http://'+website, '_blank') //模拟打开网址
+			}
+		}
+
+	</script>
+</body>
+</html>
